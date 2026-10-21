@@ -19,47 +19,33 @@ A beginner-friendly full-stack web application designed for managing and trackin
 - **Security**: `bcrypt` for password hashing, `cors`, `dotenv`
 
 ## System Requirements
-- Node.js (v14 or higher)
-- MySQL Server
+- Node.js and npm
 
-## Installation Steps
+## Run Locally
 
-### 1. Database Setup
-1. Open your MySQL client (e.g., phpMyAdmin, MySQL Workbench, or CLI).
-2. Execute the provided SQL script to create the database, tables, and sample data.
-   - You can copy the contents of `database/database.sql` and run it.
-   - Alternatively, from terminal: `mysql -u root -p < database/database.sql`
-   *(Assuming your MySQL root user has no password. Adjust if necessary).*
+The current API uses in-memory mock data, so MySQL setup is not required. Changes to renewals are temporary and reset when the server restarts.
 
-### 2. Backend Setup
-1. Open a terminal and navigate to the `backend` folder:
+1. Open a terminal in the `backend` folder:
    ```bash
-   cd renewal-management-system/backend
+   cd backend
    ```
-2. Install the required Node.js dependencies:
+2. Install dependencies and start the server:
    ```bash
-   npm install
-   ```
-3. Configure the environment variables:
-   - Copy `.env.example` to `.env` in the `backend` directory.
-   - Update the `DB_PASSWORD` in `.env` if your MySQL root user has a password. The local `.env` file is not committed.
-     ```env
-     PORT=5000
-     DB_HOST=localhost
-     DB_USER=root
-     DB_PASSWORD=
-     DB_NAME=renewal_db
-     ```
-4. Start the backend server:
-   ```bash
+   npm ci
    npm start
    ```
-   *You should see a message saying "Server is running on http://localhost:5000" and "Successfully connected to the database."*
+3. Open `http://localhost:5000` in your browser. Express serves the frontend and API from the same origin.
 
-### 3. Frontend Setup
-The frontend consists of plain HTML, CSS, and JS files. You do not need Node.js to run the frontend.
-1. Simply open the `frontend/index.html` file in any modern web browser.
-2. Alternatively, you can use a simple local server like VS Code's "Live Server" extension for a better experience.
+## Deploy on Render
+
+1. Push the project to GitHub and create a **Web Service** on Render connected to the repository.
+2. Leave **Root Directory** blank and set:
+   - **Build Command:** `npm ci --prefix backend`
+   - **Start Command:** `npm start --prefix backend`
+3. Deploy. No environment variables or MySQL instance are required for the current mock-data version. Render provides the `PORT` environment variable.
+4. Open the Render service URL to use the app.
+
+The current backend stores data in memory, so changes reset when the service restarts or redeploys. Do not use this version to store sensitive or production data.
 
 ## Sample Login Credentials
 Use these credentials to log into the application (pre-configured in the database):
