@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Renewal Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.html">RCMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-renewal.html"><i class="bi bi-plus-circle"></i> Add Renewal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="records.html"><i class="bi bi-table"></i> Records</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendar.html"><i class="bi bi-calendar"></i> Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notifications.html"><i class="bi bi-bell"></i> Notifications</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <span class="navbar-text me-3 text-light" id="userNameDisplay">Welcome, User</span>
+                    <button class="btn btn-outline-light btn-sm" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h2 class="mb-4">Dashboard Overview</h2>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-primary shadow h-100 py-2" style="border-radius: 10px;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-uppercase mb-1">Total Renewals</div>
+                                <div class="h3 mb-0 fw-bold" id="totalCount">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-folder fa-2x text-gray-300 fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-success shadow h-100 py-2" style="border-radius: 10px;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-uppercase mb-1">Active</div>
+                                <div class="h3 mb-0 fw-bold" id="activeCount">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-check-circle fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-warning shadow h-100 py-2" style="border-radius: 10px;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-uppercase mb-1">Due Soon</div>
+                                <div class="h3 mb-0 fw-bold" id="dueCount">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-exclamation-triangle fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-danger shadow h-100 py-2" style="border-radius: 10px;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-uppercase mb-1">Expired</div>
+                                <div class="h3 mb-0 fw-bold" id="expiredCount">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-x-circle fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Reminders Section -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow mb-4" style="border-radius: 10px; border-top: 4px solid #f6c23e;">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 fw-bold text-warning">Quick Reminders</h6>
+                        <a href="notifications.html" class="btn btn-sm btn-outline-warning">View All</a>
+                    </div>
+                    <div class="card-body" id="remindersContainer">
+                        <p class="text-center text-muted my-3">Loading reminders...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Renewals Table -->
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow mb-4" style="border-radius: 10px; border-top: 4px solid #4e73df;">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 fw-bold text-primary">Recently Added/Updated</h6>
+                        <a href="records.html" class="btn btn-sm btn-outline-primary">View All Records</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Renewal Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentTableBody">
+                                    <tr><td colspan="5" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
